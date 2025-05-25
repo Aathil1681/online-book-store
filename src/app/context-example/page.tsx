@@ -1,9 +1,7 @@
 "use client";
 import Card from "@/components/Card";
 import Navbar from "@/components/Navbar";
-import { CountContext, CountProvider } from "@/context/useCountContext";
-
-import React, { useState } from "react";
+import { CountProvider } from "@/context/useCountContext";
 
 const page = () => {
   return (

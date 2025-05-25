@@ -1,38 +1,35 @@
 import axios, { AxiosError, CreateAxiosDefaults, ResponseType } from "axios";
 
 const toastServices = {
-  error: (message: string) => {
+  error: (_message: string) => {
     //here we can use toats
   },
 };
 
-type ApiMethods = "post" | "get" | "patch" | "delete";
+// type ApiMethods = "post" | "get" | "patch" | "delete";
 
 const CreateApiClient = ({
   baseURL,
-  method,
-  responseType,
-  header,
+  // method,
+  responseType = "json", //this is how we declare default values
   options,
+  headers,
   getToken,
   logout,
 }: {
   baseURL: string;
-  method: ApiMethods;
-  responseType: ResponseType;
-  header: CreateAxiosDefaults["headers"];
+  // method: ApiMethods;
+  responseType?: ResponseType;
+  getToken: () => string | undefined | null;
   logout: () => void;
-  getToken: () => string | null | undefined;
-  options?: Omit<
-    CreateAxiosDefaults,
-    "baseURL" | "method" | "responseType " | "headers"
-  >;
+  options?: Omit<CreateAxiosDefaults, "baseURL" | "method" | "responseType">;
+  headers?: CreateAxiosDefaults["headers"];
 }) => {
   const apiClient = axios.create({
     baseURL,
-    method,
+    // method,
     responseType,
-    headers: header ?? {
+    headers: headers ?? {
       "Content-Type": "application/json",
     },
     ...options,
@@ -46,9 +43,7 @@ const CreateApiClient = ({
       }
       return config;
     },
-    (error) => {
-      Promise.reject(error);
-    },
+    (error) => Promise.reject(error),
   );
 
   apiClient.interceptors.response.use(
@@ -66,6 +61,7 @@ const CreateApiClient = ({
       Promise.reject(error);
     },
   );
+  return apiClient;
 };
 
 export default CreateApiClient;
