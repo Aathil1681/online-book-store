@@ -5,9 +5,16 @@ import handleError from "../../helpers/handleError";
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   try {
     const book = await prisma.book.findUnique({
-      where: { id: params.id },
-      include: { category: true },
-    });
+  where: { id: params.id },
+  include: {
+    category: true,
+    reviews: {
+      include: { user: true },
+      orderBy: { createdAt: "desc" },
+    },
+  },
+});
+
 
     if (!book) {
       return NextResponse.json({ success: false, message: "Book not found" }, { status: 404 });

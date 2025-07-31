@@ -38,3 +38,14 @@ export async function POST(request: NextRequest) {
     return handleError(error, "Failed to subscribe to newsletter");
   }
 }
+/*
+ Email format validation
+
+Duplicate checks
+
+Prisma DB insert
+
+Custom error handler (handleError)
+
+Typed request via NextRequest
+*/ 

@@ -20,6 +20,8 @@ model User {
   password  String
   role      String   @default("user") // "admin" or "user"
   createdAt DateTime @default(now())
+
+  reviews    Review[]
 }
 
 model Book {
@@ -34,6 +36,7 @@ model Book {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   
+  reviews    Review[]
 }
 
 model Category {
@@ -49,6 +52,9 @@ model Review {
   comment   String
   rating    Int
   createdAt DateTime @default(now())
+
+  user  User @relation(fields: [userId], references: [id])
+  book  Book @relation(fields: [bookId], references: [id])
 }
 
 model Newsletter {
