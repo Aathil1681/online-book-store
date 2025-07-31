@@ -1,102 +1,123 @@
-# Employee Rating System
+# 📚 Online Book Store (Full-Stack App)
 
-## Overview
+A modern, full-stack book-selling web app built with **Next.js**, **MongoDB**, and **Prisma**. It includes full user authentication, shopping cart functionality, and secure API routes. Designed to be clean, scalable, and ideal for real-world deployment.
 
-The Employee Rating System is a web-based application designed to facilitate performance evaluations within organizations. It allows companies to create accounts, manage employees, assign supervisors, and rate employee performance based on customizable criteria over specific time periods.
+🔗 [GitHub Repository](https://github.com/Aathil1681/online-book-store)
 
-## Features
+---
 
-- **Role-Based Access Control (RBAC)**: Owners, Supervisors, and Employees have specific permissions.
-- **Customizable Rating Criteria**: Organizations define their evaluation metrics.
-- **Periodic Ratings**: Employee evaluations are tied to specific time periods.
-- **Secure Authentication**: JWT-based authentication and authorization.
-- **Scalability**: Supports multiple organizations and thousands of users.
+## 🚀 Features
 
-## Tech Stack
+- 🔐 **Authentication**
+  - JWT-based auth (stored in cookies)
+  - Register/Login with validation
+  - Passwords hashed using `argon2`
+  - Route protection via middleware
 
-- **Next.js** – Server-side rendering (SSR) and static site generation (SSG).
-- **Tailwind CSS** – Utility-first CSS for responsive UI.
-- **Zustand** – Lightweight state management.
-- **TanStack Query** – Data fetching, caching, and synchronization.
-- **Zod** – Schema validation for forms and API payloads.
-- **MongoDB + Prisma** – Type-safe database interaction.
+- 📚 **Book Store**
+  - View available books (image, title, price)
+  - Add to cart / remove from cart
+  - Quantity update supported
+  - Book data fetched from MongoDB using Prisma
 
-## Installation
+- 🛍️ **Cart System**
+  - Per-user cart logic
+  - Persistent state via MongoDB
+  - Real-time toast notifications on actions
 
-### Prerequisites
+- ⚙️ **Backend API**
+  - Next.js API Routes
+  - Input validation via `Zod`
+  - Central error handling with `handleError`
+  - Prisma used with `$transaction` for critical flows
 
-Ensure you have the following installed:
+- 🎨 **Frontend UI**
+  - Fully responsive with **Tailwind CSS**
+  - Toast feedback with `react-hot-toast`
+  - Smooth transitions and clean layout
 
-- Node.js (v18+)
-- MongoDB (or an accessible MongoDB Atlas instance)
+---
 
-### Setup
+## 🧱 Tech Stack
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/employee-rating-system.git
-   cd employee-rating-system
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file in the root directory and configure the following variables:
-   ```env
-   DATABASE_URL="your_mongodb_connection_string"
-   NEXT_PUBLIC_API_BASE_URL="http://localhost:3000/api"
-   JWT_SECRET="your_secret_key"
-   ```
-4. Run database migrations:
-   ```bash
-   npx prisma migrate dev --name init
-   ```
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
+| Layer        | Technology            |
+|--------------|------------------------|
+| Frontend     | Next.js, React, Tailwind CSS |
+| Backend      | Next.js API Routes     |
+| Database     | MongoDB (via Prisma)   |
+| Auth         | JWT + Cookies + Argon2 |
+| Validation   | Zod                    |
+| Toasts       | react-hot-toast        |
+| State Mgmt   | Context API or Zustand |
 
-## Project Structure
+---
 
-```
-/employee-rating-system
-├── src
-│   ├── app        # Next.js pages and API routes
-│   ├── components # UI components
-│   ├── hooks      # Custom React hooks
-│   ├── store      # Zustand state management
-│   ├── api        # API integration (TanStack Query)
-│   ├── configs    # Configuration files
-│   ├── prisma     # Prisma schema and migrations
-│   ├── utils      # Utility functions
-├── public         # Static assets
-├── styles         # Global styles (Tailwind)
-├── .env           # Environment variables
-├── package.json   # Dependencies and scripts
-└── README.md      # Project documentation
-```
+## 📁 Project Structure
 
-## Deployment
+/online-book-store
+├── app # Next.js 13 app directory
+│ ├── api # API route handlers (auth, books, cart, etc.)
+│ └── pages # UI pages (login, register, home)
+├── components # UI and logic components
+├── lib # Prisma client, utilities
+├── prisma # Prisma schema and migrations
+├── public # Static assets (images)
+├── styles # Tailwind global styles
+├── .env # Local environment variables
+├── .env.sample # Example env for contributors
+├── package.json # Scripts and dependencies
+└── README.md # Project docs
 
-To build and deploy the application:
+---
+
+
+## 🛠️ Getting Started
+
+### 1. Clone the Repo
 
 ```bash
+git clone https://github.com/Aathil1681/online-book-store.git
+cd online-book-store
+
+2. Install Dependencies
+  npm install
+  
+3. Setup Environment Variables
+Create a .env file in the root and add the following:
+
+env
+DATABASE_URL="your_mongodb_connection_string"
+JWT_SECRET="your_jwt_secret"
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
+NEXT_PUBLIC_HOST_URL=http://localhost:3000
+Or use the included .env.sample to guide setup.
+
+4. Push Prisma Schema
+
+   npx prisma db push
+
+5. Run the Dev Server
+
+   npm run dev
+
+
+🚀 Deployment
+To deploy in production:
+
 npm run build
 npm start
-```
+Recommend platforms: Vercel, Render, DigitalOcean, or Heroku.
 
-For production deployment, consider hosting on **Vercel**, **AWS**, or **DigitalOcean**.
+🤝 Contributing
+Contributions are welcome!
 
-## Contributing
+Fork the repo
 
-Contributions are welcome! To contribute:
+Create a new branch git checkout -b feature/your-feature
 
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -m "Add feature"`.
-4. Push to the branch: `git push origin feature-name`.
-5. Open a Pull Request.
+Commit your changes
 
-## License
+Push and open a Pull Request
 
-This project is licensed under the MIT License.
+📄 License
+MIT License. Built with ❤️ by Aathil Ihlaas
