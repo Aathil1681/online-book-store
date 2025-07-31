@@ -8,13 +8,12 @@
     "start": "next start",
     "migrate": "npx prisma db push && npx prisma generate",
     "lint": "next lint",
-     "create-diff:win": "@powershell -Command \"git diff --cached -- . ':^node_modules' ':^package-lock.json' ':^src/app/fonts' ':^public' | Out-File -FilePath $env:USERPROFILE\\Desktop\\diff.txt; git ls-files --others --exclude-standard ':!node_modules/*' ':!package-lock.json' ':!src/app/fonts/*' ':!public/*' | ForEach-Object { Write-Output ('+++ ' + $_); Get-Content $_ } | Out-File -FilePath $env:USERPROFILE\\Desktop\\diff3.txt -Append\"",
+    "create-diff:win": "@powershell -Command \"git diff --cached -- . ':^node_modules' ':^package-lock.json' ':^src/app/fonts' ':^public' | Out-File -FilePath $env:USERPROFILE\\Desktop\\diff.txt; git ls-files --others --exclude-standard ':!node_modules/*' ':!package-lock.json' ':!src/app/fonts/*' ':!public/*' | ForEach-Object { Write-Output ('+++ ' + $_); Get-Content $_ } | Out-File -FilePath $env:USERPROFILE\\Desktop\\diff3.txt -Append\"",
     "create-diff:mac": "{ git diff -- . ':(exclude)node_modules' ':(exclude)package-lock.json' ':(exclude)src/app/fonts' ':(exclude)public' && git ls-files --others --exclude-standard ':!node_modules/*' ':!package-lock.json' ':!src/app/fonts/*' ':!public/*' | while read file; do echo \"+++ $file\"; cat \"$file\"; done; } > ~/Desktop/diff.txt"
- 
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
-    "@prisma/client": "^6.10.1",
+    "@prisma/client": "^6.13.0",
     "argon2": "^0.43.0",
     "axios": "^1.10.0",
     "js-cookie": "^3.0.5",
@@ -40,7 +39,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "prisma": "^6.10.1",
+    "prisma": "^6.13.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
