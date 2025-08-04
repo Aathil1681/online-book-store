@@ -7,13 +7,12 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const category = searchParams.get("category");
-    const featured = searchParams.get("featured");
+    
     const search = searchParams.get("search");
 
     const books = await prisma.book.findMany({
       where: {
         ...(category && { categoryId: category }),
-        ...(featured && { featured: featured === "true" }),
         ...(search && {
           OR: [
             { title: { contains: search, mode: "insensitive" } },
@@ -35,7 +34,7 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
 
-    const { title, author, price, image, categoryId, featured } = data;
+    const { title, author, price, image, categoryId } = data;
 
     if (!title || !author || !price || !image || !categoryId) {
       return NextResponse.json(
@@ -51,7 +50,7 @@ export async function POST(request: NextRequest) {
         price,
         image,
         categoryId,
-        featured: featured ?? false,
+        
       },
     });
 

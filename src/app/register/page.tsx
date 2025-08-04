@@ -5,11 +5,11 @@ import RegisterForm from "./RegisterForm";
 
 const page = () => {
   return (
-    <section className="w-full h-dvh flex items-center justify-center bg-lime-50">
+    <section className="w-full h-dvh flex items-center justify-center">
       <div className="rounded-3xl w-full">
         <div className="h-dvh w-full mx-auto flex flex-col md:flex-row">
           {/* Left side */}
-          <div className="h-dvh w-full md:w-2/3 flex flex-col object-cover p-5">
+          <div className="h-dvh w-full md:w-2/3 flex flex-col object-cover p-1">
             <div className="size-full relative rounded-2xl overflow-hidden shadow-xl">
               <Image
                 fill
@@ -22,7 +22,7 @@ const page = () => {
           {/* Right side (Scrollable) */}
           <div className="relative w-full md:w-1/3  overflow-y-auto h-dvh">
             {/* Sticky top logo */}
-            <div className="flex items-center sticky top-0 left-2 gap-2 bg-lime-50 z-10 pb-5 pt-5 mt-5">
+            <div className="flex items-center sticky pl-4 top-0 left-2 gap-2 bg-white z-10 pb-5 pt-5 mt-5">
               <div className="p-2 rounded-full bg-white/50 shadow-md dark:border-white/10">
                 <SiBookalope className="size-4 text-black" />
               </div>
@@ -35,7 +35,7 @@ const page = () => {
             </div>
 
             {/* Sticky Footer */}
-            <div className="sticky bottom-0 left-0 w-full bg-lime-50 pt-10">
+            <div className="sticky bottom-0 left-0 w-full bg-white pt-10">
               <div className="flex justify-between text-xs text-gray-500 px-3 pb-3">
                 <p>© 2025 Bookmark</p>
                 <p>Privacy Policy</p>

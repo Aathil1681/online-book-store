@@ -1,32 +1,27 @@
 import axios, { AxiosError, CreateAxiosDefaults, ResponseType } from "axios";
 
-type method = "post" | "get" | "put" | "patch" | "delete";
-
 const createApiClient = ({
   baseURL,
-  method,
-  resposneType,
+  responseType,
   headers,
   getToken,
   logout,
   options,
 }: {
   baseURL: string;
-  method?: method;
-  resposneType?: ResponseType;
+  responseType?: ResponseType;
   headers?: CreateAxiosDefaults["headers"];
   getToken: () => string | null;
   logout: () => void;
   options?: Omit<
     CreateAxiosDefaults,
-    "baseUrl" | "responseType" | "method" | "headers"
+    "baseURL" | "responseType" | "headers"
   >;
 }) => {
   const apiClient = axios.create({
     baseURL: baseURL,
-    method: method,
     headers: headers ?? { "Content-Type": "application/json" },
-    responseType: resposneType,
+    responseType: responseType,
     ...options,
   });
 
@@ -42,8 +37,7 @@ const createApiClient = ({
   );
 
   apiClient.interceptors.response.use(
-    (respose) => respose,
-
+    (response) => response,
     (error: AxiosError) => {
       const status = error.response?.status;
 

@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "w7.pngwing.com",
+        hostname: "cdn.shopify.com",
       },
     ],
   },

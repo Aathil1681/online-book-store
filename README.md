@@ -16,20 +16,16 @@ A modern, full-stack book-selling web app built with **Next.js**, **MongoDB**, a
 
 - 📚 **Book Store**
   - View available books (image, title, price)
-  - Add to cart / remove from cart
-  - Quantity update supported
   - Book data fetched from MongoDB using Prisma
+  - Add your own products and view other products
 
-- 🛍️ **Cart System**
-  - Per-user cart logic
-  - Persistent state via MongoDB
-  - Real-time toast notifications on actions
 
 - ⚙️ **Backend API**
   - Next.js API Routes
   - Input validation via `Zod`
   - Central error handling with `handleError`
   - Prisma used with `$transaction` for critical flows
+  - Protected routes with `middleware`
 
 - 🎨 **Frontend UI**
   - Fully responsive with **Tailwind CSS**

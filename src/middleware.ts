@@ -1,39 +1,62 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+import { jwtVerify } from "jose";
 import { cookieKeys } from "./config/cookies.config";
 
-export async function middleware(request: NextRequest, _: NextResponse) {
-  const session = request.cookies.get(cookieKeys.USER_TOKEN);
+export async function middleware(request: NextRequest) {
+  try {
+    const session = (await cookies()).get(cookieKeys.USER_TOKEN)?.value;
 
-  const onlyPublicRoutes = ["/login", "/sign-up"];
+    let isSessionValid = false;
 
-  const isOnlyPublic = onlyPublicRoutes.includes(request.nextUrl.pathname);
+    const url = request.nextUrl.pathname;
 
-  if (!session && !isOnlyPublic) {
-    const url = new URL("/login", request.url);
+    const secret = new TextEncoder().encode(process?.env?.JWT_SECRET!);
 
-    // Preserve all existing query parameters
-    for (const [key, value] of request.nextUrl.searchParams.entries()) {
-      url.searchParams.append(key, value);
+    if (session) {
+      const payload = (await jwtVerify(session, secret)).payload;
+      isSessionValid = payload ? true : false;
+      console.log({ payload });
     }
 
-    // Add redirect_to parameter if it's not already present
-    if (!url.searchParams.has("redirect_to")) {
-      url.searchParams.set("redirect_to", request.nextUrl.pathname);
+    const onlyPublicRoutes = [
+      "/register",
+      "/login",
+    ];
+
+    //check if it is not user and requested url is not mentioned in onlyPrivateRoute
+    //This will redirect user to requested page after login is completed
+
+    if (!session && !onlyPublicRoutes.includes(url)) {
+      //proceed
+
+      let nextUrl = "/login";
+      nextUrl += `?redirect_to=${url}`;
+
+      return NextResponse.redirect(new URL(nextUrl, request.url));
     }
 
-    return NextResponse.redirect(url);
-  }
+    //Avoid login users from regiter page
 
-  if (session && isOnlyPublic) {
-    return NextResponse.redirect(new URL(`/`, request.url));
-  }
+    if (session && onlyPublicRoutes.includes(url)) {
+      //proceed
 
-  if (session && !isOnlyPublic) {
-    return NextResponse.next();
+      let url = "/"; //redirect to home
+
+      return NextResponse.redirect(new URL(url, request.url));
+    }
+    //Authenticated users can access anywhere
+    if (session && !onlyPublicRoutes.includes(url)) {
+      NextResponse.next();
+    }
+  } catch (error) {
+    const err: any = error;
+
+    (await cookies()).delete(cookieKeys.USER_TOKEN);
+
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 }
-
 export const config = {
-  matcher: ["/login/:paths*", "/sign-up/:paths*", "/protected/:paths*"],
+  matcher: ["/admin/:paths*", "/register/:paths*", "/login/:paths*"],
 };

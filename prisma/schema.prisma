@@ -15,13 +15,13 @@ datasource db {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  firstName String
+  lastName  String
   email     String   @unique
   password  String
-  role      String   @default("user") // "admin" or "user"
+  role      String   @default("user") 
   createdAt DateTime @default(now())
 
-  reviews    Review[]
 }
 
 model Book {
@@ -30,13 +30,11 @@ model Book {
   author     String
   price      Float
   image      String
-  featured   Boolean  @default(false)
-  categoryId String   @db.ObjectId
-  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String?   @db.ObjectId
+  category   Category? @relation(fields: [categoryId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   
-  reviews    Review[]
 }
 
 model Category {
@@ -45,20 +43,4 @@ model Category {
   books Book[]
 }
 
-model Review {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  bookId    String   @db.ObjectId
-  comment   String
-  rating    Int
-  createdAt DateTime @default(now())
 
-  user  User @relation(fields: [userId], references: [id])
-  book  Book @relation(fields: [bookId], references: [id])
-}
-
-model Newsletter {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  createdAt DateTime @default(now())
-}

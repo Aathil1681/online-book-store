@@ -8,10 +8,6 @@ export async function GET(_: NextRequest, { params }: { params: { id: string } }
   where: { id: params.id },
   include: {
     category: true,
-    reviews: {
-      include: { user: true },
-      orderBy: { createdAt: "desc" },
-    },
   },
 });
 
@@ -30,7 +26,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   try {
     const data = await request.json();
 
-    const { title, author, price, image, featured, categoryId } = data;
+    const { title, author, price, image, categoryId } = data;
 
     const book = await prisma.book.update({
       where: { id: params.id },
@@ -39,7 +35,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         ...(author && { author }),
         ...(price && { price }),
         ...(image && { image }),
-        ...(typeof featured === "boolean" && { featured }),
         ...(categoryId && { categoryId }),
       },
     });

@@ -5,11 +5,11 @@ import LoginForm from "./LoginForm";
 
 const page = () => {
   return (
-    <section className="w-full h-dvh flex items-center justify-center bg-lime-50">
+    <section className="w-full h-dvh flex items-center justify-center">
       <div className="rounded-3xl w-full">
         <div className="h-dvh w-full mx-auto flex flex-col md:flex-row">
           {/* Left side */}
-          <div className=" h-dvh w-full md:w-2/3 flex flex-col object-cover p-5">
+          <div className=" h-dvh w-full md:w-2/3 flex flex-col object-cover p-1">
             <div className="size-full relative rounded-2xl overflow-hidden shadow-xl">
               <Image
                 fill
