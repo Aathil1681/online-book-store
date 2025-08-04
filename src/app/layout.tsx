@@ -1,7 +1,5 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import Header from "./layout/Header";
-import Footer from "./layout/Footer";
 import { ApiProvider } from "@/providers/apiProvider";
 
 export const metadata = {

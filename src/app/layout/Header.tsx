@@ -37,7 +37,7 @@ export default function Header() {
   }
 
   // Close menu on navigation link click
-  function handleNavClick(path?: string) {
+  function _handleNavClick(path?: string) {
     setMenuOpen(false);
     if (path) router.push(path);
   }

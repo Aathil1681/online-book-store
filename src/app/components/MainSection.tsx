@@ -14,7 +14,7 @@ export default function MainSection() {
           </h1>
           <p className="text-base md:text-lg text-gray-900 max-w-xl font-medium mt-4 p-5 ml-0 md:ml-5 shadow-sm">
             At BookMark, we are redefining the way you discover and enjoy books.
-            Whether you're a lifelong reader or just beginning your journey into the
+            Whether you&apos;re a lifelong reader or just beginning your journey into the
             world of literature, BookMark is your trusted companion.
           </p>
         </div>

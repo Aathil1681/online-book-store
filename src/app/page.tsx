@@ -11,7 +11,7 @@ import { FaArrowDown } from "react-icons/fa6";
 import AboutUs from "./components/AboutUs";
 
 export default function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, _setSelectedCategory] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   return (

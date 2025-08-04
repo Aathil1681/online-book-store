@@ -43,7 +43,7 @@ export default function BookList({ categoryId, search }: BookListProps) {
         } else {
           setError("Failed to load books");
         }
-      } catch (err) {
+      } catch (_err) {
         setError("Failed to load books");
       } finally {
         setLoading(false);

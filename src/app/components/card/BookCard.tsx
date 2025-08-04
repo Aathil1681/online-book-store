@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { FaEye, FaShoppingCart } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { GrCatalogOption } from "react-icons/gr";
@@ -39,10 +40,12 @@ export default function BookCard({
     >
       {/* Image */}
       <div className="relative w-full aspect-[3/2] overflow-hidden p-3">
-        <img
+        <Image
           src={image}
           alt={title}
-          className="object-cover w-full h-full rounded-lg"
+          layout="fill"
+          objectFit="cover"
+          className="rounded-lg"
         />
       </div>
 

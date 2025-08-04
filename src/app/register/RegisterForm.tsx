@@ -20,7 +20,6 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     reset,
-    setError,
     formState: { errors },
   } = useForm<UserRegisterInput>({
     mode: "onSubmit",

@@ -5,58 +5,58 @@ import { cookieKeys } from "./config/cookies.config";
 
 export async function middleware(request: NextRequest) {
   try {
+    // Get session token from cookies (if exists)
     const session = (await cookies()).get(cookieKeys.USER_TOKEN)?.value;
 
-    let isSessionValid = false;
-
+    // Get current path from the request
     const url = request.nextUrl.pathname;
 
-    const secret = new TextEncoder().encode(process?.env?.JWT_SECRET!);
+    // Read JWT secret from environment variables
+    const jwtSecret = process?.env?.JWT_SECRET;
+    if (!jwtSecret) throw new Error("JWT_SECRET is not defined");
 
+    const secret = new TextEncoder().encode(jwtSecret);
+
+    // If session token exists, verify the token
     if (session) {
       const payload = (await jwtVerify(session, secret)).payload;
-      isSessionValid = payload ? true : false;
+
+      // Log the payload (you can remove this in production)
       console.log({ payload });
     }
 
-    const onlyPublicRoutes = [
-      "/register",
-      "/login",
-    ];
+    // Define public routes that should be accessible without login
+    const onlyPublicRoutes = ["/register", "/login"];
 
-    //check if it is not user and requested url is not mentioned in onlyPrivateRoute
-    //This will redirect user to requested page after login is completed
-
+    // If user is not logged in and trying to access a protected route
     if (!session && !onlyPublicRoutes.includes(url)) {
-      //proceed
-
-      let nextUrl = "/login";
-      nextUrl += `?redirect_to=${url}`;
-
+      const nextUrl = `/login?redirect_to=${url}`;
       return NextResponse.redirect(new URL(nextUrl, request.url));
     }
 
-    //Avoid login users from regiter page
-
+    // If user is already logged in and trying to access public routes (redirect them to home)
     if (session && onlyPublicRoutes.includes(url)) {
-      //proceed
-
-      let url = "/"; //redirect to home
-
-      return NextResponse.redirect(new URL(url, request.url));
+      const redirectUrl = "/";
+      return NextResponse.redirect(new URL(redirectUrl, request.url));
     }
-    //Authenticated users can access anywhere
+
+    // If user is authenticated and accessing a protected route, allow the request
     if (session && !onlyPublicRoutes.includes(url)) {
-      NextResponse.next();
+      return NextResponse.next(); // Must return response
     }
-  } catch (error) {
-    const err: any = error;
 
+  } catch (error) {
+    const _err: any = error; // Renamed to _err to avoid unused variable warning
+
+    // Clear session token if verification fails or any error occurs
     (await cookies()).delete(cookieKeys.USER_TOKEN);
 
+    // Redirect to login page
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
+
+// Define which routes the middleware should apply to
 export const config = {
   matcher: ["/admin/:paths*", "/register/:paths*", "/login/:paths*"],
 };

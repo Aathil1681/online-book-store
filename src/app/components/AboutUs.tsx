@@ -11,7 +11,7 @@ export default function AboutUs() {
             About Boomark
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
-            Boomark is more than a bookstore — it's a community for readers, learners, and dreamers. Our mission is to connect people with the stories, knowledge, and imagination that books offer.
+            Boomark is more than a bookstore — it&apos;s a community for readers, learners, and dreamers. Our mission is to connect people with the stories, knowledge, and imagination that books offer.
           </p>
         </div>
 
@@ -67,6 +67,6 @@ export default function AboutUs() {
           </p>
         </div>
       </div>
-    </section>
+    </section> 
   );
 }

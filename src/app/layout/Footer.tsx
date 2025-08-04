@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   FaFacebookF,
@@ -30,10 +31,10 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold text-gray-800 mb-3">Quick Links</h4>
           <ul className="space-y-2">
-            <li><a href="/" className="hover:underline">Home</a></li>
-            <li><a href="/categories" className="hover:underline">Categories</a></li>
-            <li><a href="/contact" className="hover:underline">Contact</a></li>
-            <li><a href="/about" className="hover:underline">About Us</a></li>
+            <li><Link href="/" className="hover:underline">Home</Link></li>
+            <li><Link href="/categories" className="hover:underline">Categories</Link></li>
+            <li><Link href="/contact" className="hover:underline">Contact</Link></li>
+            <li><Link href="/about" className="hover:underline">About Us</Link></li>
           </ul>
         </div>
 
@@ -51,10 +52,10 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold text-gray-800 mb-3">Follow Us</h4>
           <div className="flex gap-4 text-[#3D550C]">
-            <a href="#" className="hover:text-[#2d3b06]"><FaFacebookF className="size-5"/></a>
-            <a href="#" className="hover:text-[#2d3b06]"><FaTwitter className="size-5"/></a>
-            <a href="#" className="hover:text-[#2d3b06]"><FaInstagram className="size-5"/></a>
-            <a href="#" className="hover:text-[#2d3b06]"><FaLinkedinIn className="size-5"/></a>
+            <Link href="#" className="hover:text-[#2d3b06]"><FaFacebookF className="size-5"/></Link>
+            <Link href="#" className="hover:text-[#2d3b06]"><FaTwitter className="size-5"/></Link>
+            <Link href="#" className="hover:text-[#2d3b06]"><FaInstagram className="size-5"/></Link>
+            <Link href="#" className="hover:text-[#2d3b06]"><FaLinkedinIn className="size-5"/></Link>
           </div>
           <p className="mt-4 text-sm">Subscribe to our newsletter</p>
           <form className="mt-2 flex">
