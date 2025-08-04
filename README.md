@@ -1,6 +1,6 @@
 # 📚 Online Book Store (Full-Stack App)
 
-A modern, full-stack book-selling web app built with **Next.js**, **MongoDB**, and **Prisma**. It includes full user authentication, shopping cart functionality, and secure API routes. Designed to be clean, scalable, and ideal for real-world deployment.
+A modern, full-stack book-selling web app built with **Next.js**, **MongoDB**, and **Prisma**. It includes full user authentication, and secure API routes. Designed to be clean, scalable, and ideal for real-world deployment.
 
 🔗 [GitHub Repository](https://github.com/Aathil1681/online-book-store)
 
