@@ -2,15 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import handleError from "../../helpers/handleError";
 
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest) {
   try {
-    const book = await prisma.book.findUnique({
-  where: { id: params.id },
-  include: {
-    category: true,
-  },
-});
+    // Extract the ID from the pathname
+    // The pathname is something like: /api/books/123
+    const pathname = request.nextUrl.pathname;
+    const parts = pathname.split("/");
+    const id = parts[parts.length - 1];
 
+    const book = await prisma.book.findUnique({
+      where: { id },
+      include: {
+        category: true,
+      },
+    });
 
     if (!book) {
       return NextResponse.json({ success: false, message: "Book not found" }, { status: 404 });
@@ -22,14 +27,17 @@ export async function GET(_: NextRequest, { params }: { params: { id: string } }
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest) {
   try {
-    const data = await request.json();
+    const pathname = request.nextUrl.pathname;
+    const parts = pathname.split("/");
+    const id = parts[parts.length - 1];
 
+    const data = await request.json();
     const { title, author, price, image, categoryId } = data;
 
     const book = await prisma.book.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...(title && { title }),
         ...(author && { author }),
@@ -45,9 +53,13 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(_: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest) {
   try {
-    await prisma.book.delete({ where: { id: params.id } });
+    const pathname = request.nextUrl.pathname;
+    const parts = pathname.split("/");
+    const id = parts[parts.length - 1];
+
+    await prisma.book.delete({ where: { id } });
     return NextResponse.json({ success: true, message: "Book deleted" });
   } catch (error) {
     return handleError(error, "Failed to delete book");
